@@ -20,11 +20,12 @@ export default class Hotkeys extends Component {
         }
       ],
       randomIndex: 0,
-      charCode1Pressed: false,
-      charCode2Pressed: false,
-      charCode3Pressed: false,
-      comboCode1Pressed: false,
-      comboCode2Pressed: false,
+      charCode1Pressed: true,
+      charCode2Pressed: true,
+      charCode3Pressed: true,
+      comboCode1Pressed: true,
+      comboCode2Pressed: true,
+      comboReady: false,
       isCorrect: false
     }
   }
@@ -32,25 +33,48 @@ export default class Hotkeys extends Component {
   componentWillMount() {
     document.addEventListener("keydown", this.updateKeyDown.bind(this));
     document.addEventListener("keyup", this.updateKeyUp.bind(this));
-  }
-
-  componentDidMount(){
     axios.get('/api/hotkeys').then(res => {
       this.setState({hotkeys: res.data})
     }).catch(err => console.log('err:', err))
   }
 
+  updateStateBooleans(){
+    let {hotkeys, randomIndex} = this.state
+    console.log(`hotkeys[${randomIndex}]:`, hotkeys[randomIndex])
+    if(hotkeys[randomIndex].charCode1){
+      this.setState({charCode1Pressed: false})
+    }
+    if(hotkeys[randomIndex].charCode2){
+      this.setState({charCode2Pressed: false})
+    }
+    if(hotkeys[randomIndex].charCode3){
+      this.setState({charCode3Pressed: false})
+    }
+    if(hotkeys[randomIndex].comboCode1){
+      this.setState({comboCode1Pressed: false})
+    }
+    if(hotkeys[randomIndex].comboCode2){
+      this.setState({comboCode2Pressed: false})
+    }
+  }
+
+  componentDidMount(){
+    setTimeout(() => this.updateStateBooleans(), 200)
+  }
+
   checkIfCorrect(keycode){
-    let {randomIndex, hotkeys, charCode1Pressed, charCode2Pressed, charCode3Pressed, comboCode1Pressed, comboCode2Pressed} = this.state
-    let {comboCode1} = hotkeys[randomIndex]
-    if (!comboCode1){
+    let {randomIndex, hotkeys, charCode1Pressed, charCode2Pressed, charCode3Pressed, comboCode1Pressed, comboCode2Pressed, comboReady} = this.state
+    let {comboCode1, comboCode2} = hotkeys[randomIndex]
+    if (!comboCode1 || !comboCode2){
       if (charCode1Pressed && charCode2Pressed && charCode3Pressed){
         console.log('You did it!!!')
         this.setState({correct: true})
       }
-    } else if (charCode1Pressed && charCode2Pressed && charCode3Pressed && comboCode1Pressed && comboCode2Pressed){
-      console.log('You did a combo!!!')
-      this.setState({correct: true})
+    } else if (comboReady){
+      if (charCode1Pressed && charCode2Pressed && charCode3Pressed && comboCode1Pressed && comboCode2Pressed){
+        console.log('You did a combo!!!')
+        this.setState({correct: true})
+      }
     }
   }
 
@@ -92,7 +116,6 @@ export default class Hotkeys extends Component {
 
   render(){
     let {hotkeys, randomIndex, isCorrect} = this.state
-    // randomIndex = Math.floor(Math.random())*(hotkeys.length)
     return (
       <Hotkey
         updateKeyDown={this.updateKeyDown}

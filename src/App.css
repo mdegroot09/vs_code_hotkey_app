@@ -7,7 +7,7 @@
 }
 
 header {
-  height: 100px;
+  height: 70px;
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -17,6 +17,19 @@ header {
   color: rgb(61, 61, 61);
 }
 
-img {
-  width: 90%;
+.title {
+  margin: 0 30px;
 }
+
+.pushHotkey {
+  color: gray;
+}
+
+.imgDiv {
+  margin: 30px;
+}
+
+img {
+  width: 100%;
+}
+
