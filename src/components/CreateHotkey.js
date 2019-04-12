@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import Navbar from './Navbar'
 
 export default class CreateHotkey extends Component {
   constructor(){
@@ -31,7 +32,8 @@ export default class CreateHotkey extends Component {
 
   render(){
     return (
-      <div>
+      <div className='App'>
+        <Navbar/>
         <input 
           onChange={this.handleChange}
           name='beforeImg' 

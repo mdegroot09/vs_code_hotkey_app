@@ -3,6 +3,8 @@ import axios from 'axios';
 
 import Hotkey from './Hotkey'
 import CreateHotkey from './CreateHotkey'
+import EditHotkey from './EditHotkey'
+import { TIMEOUT } from 'dns';
 
 export default class Hotkeys extends Component {
   constructor() {
@@ -28,6 +30,7 @@ export default class Hotkeys extends Component {
       comboCode2Pressed: true,
       comboReady: false,
       isCorrect: false,
+      create: false,
       edit: false
     }
   }
@@ -42,15 +45,40 @@ export default class Hotkeys extends Component {
 
   createHotkey = (newHotkey) => {
     axios.post('/api/hotkeys', newHotkey).then(res => {
-      this.setState({animals: res.data})
+      this.setState({create: false})
+      this.setState({hotkeys: res.data})
     }).catch(err => console.log('err:', err))
   }
 
-  updateIndex(){
-    let {index} = this.state
-    // let index = Math.floor(Math.random()*hotkeysLength)
-    index += 1
-    this.setState({index: index})
+  updateHotkey = (updateHotkey) => {
+    axios.put(`/api/hotkeys/${updateHotkey.id}`, updateHotkey).then(res => {
+      this.setState({edit: false})
+      this.setState({hotkeys: res.data})
+    }).catch(err => console.log('err:', err))
+  }
+
+  deleteHotkey = (hotkeyToDelete) => {
+    axios.delete(`/api/hotkeys/${hotkeyToDelete.id}`, hotkeyToDelete).then(res => {
+      this.setState({hotkeys: res.data})
+    }).catch(err => console.log('err:', err))
+  }
+
+  incrementIndex = (index) => {
+    let {hotkeys} = this.state
+    let indexUpdate = index + 1
+    if (indexUpdate >= hotkeys.length) {
+      indexUpdate = 0
+    }
+    this.setState({index: indexUpdate})
+  }
+
+  decrementIndex = (index) => {
+    let {hotkeys} = this.state
+    let indexUpdate = index - 1
+    if (indexUpdate < 0) {
+      indexUpdate = hotkeys.length - 1
+    }
+    this.setState({index: indexUpdate})
   }
 
   updateStateBooleans(){
@@ -130,19 +158,26 @@ export default class Hotkeys extends Component {
   }
 
   render(){
-    let {hotkeys, index, isCorrect, edit} = this.state
+    let {hotkeys, index, isCorrect, create, edit} = this.state
     return (
-      !this.state.edit ?
-      <Hotkey
-      updateKeyDown={this.updateKeyDown}
-      updateKeyUp={this.updateKeyUp}
-      hotkeys={hotkeys}
-      index={index}
-      isCorrect={isCorrect}
-      /> :
-      <CreateHotkey
-        createHotkey={this.createHotkey}
-      />
+      !create && !edit ?
+        <Hotkey
+          updateKeyDown={this.updateKeyDown}
+          updateKeyUp={this.updateKeyUp}
+          incrementIndex={this.incrementIndex}
+          decrementIndex={this.decrementIndex}
+          hotkeys={hotkeys}
+          index={index}
+          isCorrect={isCorrect}
+          deleteHotkey={this.deleteHotkey}
+        /> :
+        create ?
+          <CreateHotkey
+            createHotkey={this.createHotkey}
+          /> :
+          <EditHotkey
+            updateHotkey={this.updateHotkey}
+          />
     )
   }
 }

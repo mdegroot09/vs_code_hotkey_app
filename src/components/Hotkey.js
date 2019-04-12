@@ -13,7 +13,7 @@ export default class Hotkey extends Component {
   }
 
   render(){
-    let {index, hotkeys, isCorrect} = this.props
+    let {index, hotkeys, isCorrect, incrementIndex, decrementIndex} = this.props
     return (
       <div className="App">
         <Navbar/>
@@ -30,14 +30,17 @@ export default class Hotkey extends Component {
           </div>
         </div>
         <div className='bottom'> 
-          <button className='prevNext'><span>&#60;</span></button>
+          <button onClick={() => decrementIndex(index)} className='prevNext'><span>&#60;</span></button>
           <div className='imgDiv' onKeyDown={(e) => this.updateKeyDown(e)} onKeyUp={(e) => this.updateKeyDown(e)}>
-            <img src={hotkeys[index].beforeImg} alt='VS Code screenshot'/>
+            <span className='toggleCorrect'><img className='' src={hotkeys[index].beforeImg} alt='VS Code screenshot'/></span>
             <Buttons
               isCorrect={isCorrect}
+              hotkeys={hotkeys}
+              index={index}
+              deleteHotkey={this.props.deleteHotkey}
             />
           </div>
-          <button className='prevNext'><span>&#62;</span></button>
+          <button onClick={() => incrementIndex(index)} className='prevNext'><span>&#62;</span></button>
         </div>
         <footer></footer>
       </div>
