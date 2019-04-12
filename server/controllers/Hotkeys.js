@@ -1,3 +1,5 @@
+let id = 0
+
 let Hotkeys = [
   {
     beforeImg: 'https://i.ibb.co/zFWsGFD/Shift-Sheet-Over-Before.png',
@@ -8,6 +10,7 @@ let Hotkeys = [
     charCode3: 'arrowright',
     comboCode1: '',
     comboCode2: '',
+    id: id++
   },
   {
     beforeImg: 'https://i.ibb.co/zFWsGFD/Shift-Sheet-Over-Before.png',
@@ -18,6 +21,7 @@ let Hotkeys = [
     charCode3: 'arrowright',
     comboCode1: '',
     comboCode2: '',
+    id: id++
   },
   {
     beforeImg: 'https://i.ibb.co/K9G7nCm/Delete-Line-Before.png',
@@ -28,6 +32,7 @@ let Hotkeys = [
     charCode3: 'k',
     comboCode1: '',
     comboCode2: '',
+    id: id++
   },
   {
     beforeImg: 'https://i.ibb.co/zFWsGFD/Shift-Sheet-Over-Before.png',
@@ -38,13 +43,20 @@ let Hotkeys = [
     charCode3: 'arrowright',
     comboCode1: '',
     comboCode2: '',
+    id: id++
   }
 ]
 
 module.exports = {
   get: (req, res) => {
     res.send(Hotkeys)
-  }
+  },
 
-  
+  create: (req, res) => {
+    console.log('req.body:',req.body)
+    let newHotkey = req.body
+    newHotkey.id = id++
+    Hotkeys.push(newHotkey)
+    res.send(Hotkeys)
+  }
 }

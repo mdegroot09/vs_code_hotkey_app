@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import axios from 'axios';
 
 import Hotkey from './Hotkey'
+import CreateHotkey from './CreateHotkey'
 
 export default class Hotkeys extends Component {
   constructor() {
@@ -19,7 +20,7 @@ export default class Hotkeys extends Component {
           comboCode2: null,
         }
       ],
-      randomIndex: 0,
+      index: 0,
       charCode1Pressed: true,
       charCode2Pressed: true,
       charCode3Pressed: true,
@@ -38,22 +39,35 @@ export default class Hotkeys extends Component {
     }).catch(err => console.log('err:', err))
   }
 
+  createHotkey = (newHotkey) => {
+    axios.post('/api/hotkeys', newHotkey).then(res => {
+      this.setState({animals: res.data})
+    }).catch(err => console.log('err:', err))
+  }
+
+  updateIndex(){
+    let {index} = this.state
+    // let index = Math.floor(Math.random()*hotkeysLength)
+    index += 1
+    this.setState({index: index})
+  }
+
   updateStateBooleans(){
-    let {hotkeys, randomIndex} = this.state
-    console.log(`hotkeys[${randomIndex}]:`, hotkeys[randomIndex])
-    if(hotkeys[randomIndex].charCode1){
+    let {hotkeys, index} = this.state
+    console.log(`hotkeys[${index}]:`, hotkeys[index])
+    if(hotkeys[index].charCode1){
       this.setState({charCode1Pressed: false})
     }
-    if(hotkeys[randomIndex].charCode2){
+    if(hotkeys[index].charCode2){
       this.setState({charCode2Pressed: false})
     }
-    if(hotkeys[randomIndex].charCode3){
+    if(hotkeys[index].charCode3){
       this.setState({charCode3Pressed: false})
     }
-    if(hotkeys[randomIndex].comboCode1){
+    if(hotkeys[index].comboCode1){
       this.setState({comboCode1Pressed: false})
     }
-    if(hotkeys[randomIndex].comboCode2){
+    if(hotkeys[index].comboCode2){
       this.setState({comboCode2Pressed: false})
     }
   }
@@ -63,17 +77,17 @@ export default class Hotkeys extends Component {
   }
 
   checkIfCorrect(keycode){
-    let {randomIndex, hotkeys, charCode1Pressed, charCode2Pressed, charCode3Pressed, comboCode1Pressed, comboCode2Pressed, comboReady} = this.state
-    let {comboCode1, comboCode2} = hotkeys[randomIndex]
+    let {index, hotkeys, charCode1Pressed, charCode2Pressed, charCode3Pressed, comboCode1Pressed, comboCode2Pressed, comboReady} = this.state
+    let {comboCode1, comboCode2} = hotkeys[index]
     if (!comboCode1 || !comboCode2){
       if (charCode1Pressed && charCode2Pressed && charCode3Pressed){
         console.log('You did it!!!')
-        this.setState({correct: true})
+        this.setState({isCorrect: true})
       }
     } else if (comboReady){
       if (charCode1Pressed && charCode2Pressed && charCode3Pressed && comboCode1Pressed && comboCode2Pressed){
         console.log('You did a combo!!!')
-        this.setState({correct: true})
+        this.setState({isCorrect: true})
       }
     }
   }
@@ -81,8 +95,8 @@ export default class Hotkeys extends Component {
   updateKeyDown(keycode){
     console.log(keycode.key)
     keycode = keycode.key.toLowerCase()
-    let {randomIndex, hotkeys} = this.state
-    let {charCode1, charCode2, charCode3, comboCode1, comboCode2} = hotkeys[randomIndex]
+    let {index, hotkeys} = this.state
+    let {charCode1, charCode2, charCode3, comboCode1, comboCode2} = hotkeys[index]
     if(keycode === charCode1){
       this.setState({charCode1Pressed: true})
     } else if (keycode === charCode2){
@@ -99,8 +113,8 @@ export default class Hotkeys extends Component {
 
   updateKeyUp(keycode){
     keycode = keycode.key.toLowerCase()
-    let {randomIndex, hotkeys} = this.state
-    let {charCode1, charCode2, charCode3, comboCode1, comboCode2} = hotkeys[randomIndex]
+    let {index, hotkeys} = this.state
+    let {charCode1, charCode2, charCode3, comboCode1, comboCode2} = hotkeys[index]
     if(keycode === charCode1){
       this.setState({charCode1Pressed: false})
     } else if (keycode === charCode2){
@@ -115,13 +129,16 @@ export default class Hotkeys extends Component {
   }
 
   render(){
-    let {hotkeys, randomIndex, isCorrect} = this.state
+    let {hotkeys, index, isCorrect} = this.state
     return (
+      <CreateHotkey
+        createHotkey={this.createHotkey}
+      />,
       <Hotkey
         updateKeyDown={this.updateKeyDown}
         updateKeyUp={this.updateKeyUp}
         hotkeys={hotkeys}
-        randomIndex={randomIndex}
+        index={index}
         isCorrect={isCorrect}
       />
     )

@@ -1,4 +1,6 @@
 import React, {Component} from 'react'
+import Buttons from './Buttons'
+import Navbar from './Navbar'
 
 export default class Hotkey extends Component {
 
@@ -11,20 +13,27 @@ export default class Hotkey extends Component {
   }
 
   render(){
-    // console.log('props.randomIndex:', this.props.randomIndex)
-    let {randomIndex, hotkeys, isCorrect} = this.props
+    let {index, hotkeys, isCorrect} = this.props
     return (
       <div className="App">
+        <Navbar/>
         <header>
-          <h1 className='title'>Learn VS Code</h1>
+          <h1 className='title'>VS Code Hotkey App</h1>
+          <h3 className='title' id='subtext'>Where rookies become less rookie-like</h3>
         </header>
-        <h4 className='title pushHotkey'>Type the VS Code hotkey to:</h4>
-        <h3 className='title'>{hotkeys[randomIndex].task}</h3>
+        <div className='sideBySide'>
+          <div className='taskBox'>
+            <h2 className='task'>
+              <span className='taskText'>{hotkeys[index].task}</span>
+            </h2>
+            <button className='btn btn-primary btn-lg active' id='showMe'>Show Me</button>
+          </div>
+        </div>
         <div className='imgDiv' onKeyDown={(e) => this.updateKeyDown(e)} onKeyUp={(e) => this.updateKeyDown(e)}>
-          {isCorrect ? 
-            <img src={hotkeys[randomIndex].afterImg} alt='VS Code screenshot'/>
-            : <img src={hotkeys[randomIndex].beforeImg} alt='VS Code screenshot'/>
-          }
+          <img src={hotkeys[index].beforeImg} alt='VS Code screenshot'/>
+          <Buttons
+            isCorrect={isCorrect}
+          />
         </div>
       </div>
     )

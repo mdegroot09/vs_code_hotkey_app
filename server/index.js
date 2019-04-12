@@ -7,6 +7,8 @@ const HotkeyCtrl = require('./controllers/Hotkeys')
 app.use(express.json())
 
 app.get('/api/hotkeys', HotkeyCtrl.get)
+app.post('/api/hotkeys', HotkeyCtrl.create)
+// app.put('/api/hotkeys/:id', HotkeyCtrl.update)
 
 app.listen(port, () => {
   console.log('Listening on port', port)
