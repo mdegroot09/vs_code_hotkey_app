@@ -27,7 +27,8 @@ export default class Hotkeys extends Component {
       comboCode1Pressed: true,
       comboCode2Pressed: true,
       comboReady: false,
-      isCorrect: false
+      isCorrect: false,
+      edit: true
     }
   }
 
@@ -129,17 +130,18 @@ export default class Hotkeys extends Component {
   }
 
   render(){
-    let {hotkeys, index, isCorrect} = this.state
+    let {hotkeys, index, isCorrect, edit} = this.state
     return (
+      !this.state.edit ?
+      <Hotkey
+      updateKeyDown={this.updateKeyDown}
+      updateKeyUp={this.updateKeyUp}
+      hotkeys={hotkeys}
+      index={index}
+      isCorrect={isCorrect}
+      /> :
       <CreateHotkey
         createHotkey={this.createHotkey}
-      />,
-      <Hotkey
-        updateKeyDown={this.updateKeyDown}
-        updateKeyUp={this.updateKeyUp}
-        hotkeys={hotkeys}
-        index={index}
-        isCorrect={isCorrect}
       />
     )
   }

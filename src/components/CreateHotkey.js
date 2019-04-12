@@ -17,6 +17,7 @@ export default class CreateHotkey extends Component {
   }
 
   handleChange = e => {
+    console.log('event.target.value:', e.target.value)
     let {value, name} = e.target
     this.setState({
       [name]: value
@@ -24,33 +25,62 @@ export default class CreateHotkey extends Component {
   }
 
   handleClick = () => {
-    let newAnimal = this.state
-    this.props.createAnimal(newAnimal)
+    let newHotkey = this.state
+    this.props.createHotkey(newHotkey)
   }
 
   render(){
-    let {createHotkey} = this.props
     return (
-      <div style={{border: '1px solid black', margin: 20}}>
+      <div>
         <input 
           onChange={this.handleChange}
-          name='species' 
+          name='beforeImg' 
           type='text' 
-          placeholder="species"
-          />
-        <input 
-          onChange={this.handleChange}
-          name='imageUrl' 
-          type='text' 
-          placeholder="imarge url"
-          />
-        <input 
-          onChange={this.handleChange}
-          name='quantity' 
-          type='number' 
-          placeholder="quantity"
+          placeholder="before-image url"
         />
-        <button onClick={this.handleClick}>create animal</button>
+        <input 
+          onChange={this.handleChange}
+          name='afterImg' 
+          type='text' 
+          placeholder="after-image url"
+        />
+        <input 
+          onChange={this.handleChange}
+          name='task' 
+          type='text' 
+          placeholder="task to perform"
+        />
+        <input 
+          onChange={this.handleChange}
+          name='charCode1' 
+          type='text' 
+          placeholder="key #1"
+        />
+        <input 
+          onChange={this.handleChange}
+          name='charCode2' 
+          type='text' 
+          placeholder="key #2"
+        />
+        <input 
+          onChange={this.handleChange}
+          name='charCode3' 
+          type='text' 
+          placeholder="key #3"
+        />
+        <input 
+          onChange={this.handleChange}
+          name='comboCode1' 
+          type='text' 
+          placeholder="combo key #1"
+        />
+        <input 
+          onChange={this.handleChange}
+          name='comboCode2' 
+          type='text' 
+          placeholder="combo key #2"
+        />
+        <button onClick={this.handleClick}>create hotkey</button>
       </div>
     )
   }

@@ -101,7 +101,7 @@ header {
 
 .task {
   line-height: 30px;
-  padding: 0 20px;
+  padding: 0 10px;
   margin: 20px 0;
   font-weight: 700;
   color: white;
@@ -112,11 +112,11 @@ header {
   justify-content: center;
 }
 
-#showMe {
+#showHotkey {
   margin-right: 10px;
   background: rgb(0, 127, 212);
-  border-color: rgb(0, 61, 102);
-  width: 120px;
+  border-color: rgba(0, 89, 148, 0.651);
+  width: 150px;
   /* height: 70px; */
   /* border-radius: 10px; */
   /* font-size: 30px; */

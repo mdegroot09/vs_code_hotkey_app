@@ -26,7 +26,7 @@ export default class Hotkey extends Component {
             <h2 className='task'>
               <span className='taskText'>{hotkeys[index].task}</span>
             </h2>
-            <button className='btn btn-primary btn-lg active' id='showMe'>Show Me</button>
+            <button className='btn btn-primary btn-lg active' id='showHotkey'>Show Hotkey</button>
           </div>
         </div>
         <div className='imgDiv' onKeyDown={(e) => this.updateKeyDown(e)} onKeyUp={(e) => this.updateKeyDown(e)}>
