@@ -75,8 +75,20 @@ module.exports = {
     let index = Hotkeys.findIndex(hotkey => {
       return hotkey.id === hotkeyToDelete.id
     })
-    console.log('index:', index)
     Hotkeys.splice(index, 1)
+    if (Hotkeys.length === 0) {
+      let blankHotkey = {  
+        beforeImg: 'https://assets.parents.com/s3fs-public/styles/nfp_1080_portrait/public/ZdorovKirillVladimirovich_0.jpg?HZo9_mI3Bdq5KNVEKWPF9SPETsqtRISw',
+        afterImg: '',
+        task: 'You deleted all of the hotkeys. What a jerk.',
+        charCode1: 0,
+        charCode2: 0,
+        charCode3: 0,
+        comboCode1: null,
+        comboCode2: null,
+      }
+      Hotkeys.push(blankHotkey)
+    }
     res.send(Hotkeys)
   }
 }

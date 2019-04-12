@@ -4,7 +4,7 @@ import axios from 'axios';
 import Hotkey from './Hotkey'
 import CreateHotkey from './CreateHotkey'
 import EditHotkey from './EditHotkey'
-import { TIMEOUT } from 'dns';
+import Navbar from './Navbar'
 
 export default class Hotkeys extends Component {
   constructor() {
@@ -48,6 +48,8 @@ export default class Hotkeys extends Component {
       this.setState({create: false})
       this.setState({hotkeys: res.data})
     }).catch(err => console.log('err:', err))
+    let addNewButton = document.getElementsByClassName('addNewButton')[0]
+    addNewButton.innerHTML = '<a href="#">Add New</a>'
   }
 
   updateHotkey = (updateHotkey) => {
@@ -59,8 +61,18 @@ export default class Hotkeys extends Component {
 
   deleteHotkey = (hotkeyToDelete) => {
     axios.delete(`/api/hotkeys/${hotkeyToDelete.id}`, hotkeyToDelete).then(res => {
-      this.setState({hotkeys: res.data})
+      let newArray = res.data
+      console.log(newArray)
+      if (!newArray[0].afterImg){
+        this.setState({index: 0})
+      }
+      this.setState({hotkeys: newArray})
+      window.location.reload()
     }).catch(err => console.log('err:', err))
+  }
+
+  updateCreateStatus = (createStatus) => {
+    this.setState({create: createStatus})
   }
 
   incrementIndex = (index) => {
@@ -83,7 +95,6 @@ export default class Hotkeys extends Component {
 
   updateStateBooleans(){
     let {hotkeys, index} = this.state
-    console.log(`hotkeys[${index}]:`, hotkeys[index])
     if(hotkeys[index].charCode1){
       this.setState({charCode1Pressed: false})
     }
@@ -160,24 +171,33 @@ export default class Hotkeys extends Component {
   render(){
     let {hotkeys, index, isCorrect, create, edit} = this.state
     return (
-      !create && !edit ?
-        <Hotkey
-          updateKeyDown={this.updateKeyDown}
-          updateKeyUp={this.updateKeyUp}
-          incrementIndex={this.incrementIndex}
-          decrementIndex={this.decrementIndex}
-          hotkeys={hotkeys}
-          index={index}
-          isCorrect={isCorrect}
-          deleteHotkey={this.deleteHotkey}
-        /> :
-        create ?
-          <CreateHotkey
-            createHotkey={this.createHotkey}
+      <div className='App'> 
+        <Navbar
+          updateCreateStatus={this.updateCreateStatus}
+          create={create}
+        />
+        {!create && !edit ?
+          <Hotkey
+            updateKeyDown={this.updateKeyDown}
+            updateKeyUp={this.updateKeyUp}
+            incrementIndex={this.incrementIndex}
+            decrementIndex={this.decrementIndex}
+            hotkeys={hotkeys}
+            index={index}
+            isCorrect={isCorrect}
+            deleteHotkey={this.deleteHotkey}
+            updateEdit={this.updateEdit}
+            edit={edit}
           /> :
-          <EditHotkey
-            updateHotkey={this.updateHotkey}
-          />
+          create ?
+            <CreateHotkey
+              createHotkey={this.createHotkey}
+            /> :
+            <EditHotkey
+              updateHotkey={this.updateHotkey}
+            />
+        }
+      </div>
     )
   }
 }

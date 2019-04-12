@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import Buttons from './Buttons'
-import Navbar from './Navbar'
 
 export default class Hotkey extends Component {
 
@@ -16,7 +15,6 @@ export default class Hotkey extends Component {
     let {index, hotkeys, isCorrect, incrementIndex, decrementIndex} = this.props
     return (
       <div className="App">
-        <Navbar/>
         <header>
           <h1 className='title'>VS Code Hotkey App</h1>
           <h3 className='title' id='subtext'>Where rookies become less rookie-like</h3>

@@ -33,7 +33,6 @@ export default class CreateHotkey extends Component {
   render(){
     return (
       <div className='App'>
-        <Navbar/>
         <input 
           onChange={this.handleChange}
           name='beforeImg' 
