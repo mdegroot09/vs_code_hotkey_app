@@ -3,12 +3,10 @@ body {
   background-repeat: no-repeat;
   background-size: 100% 100%;
   background-position: top;
-  background-color: rgba(0, 0, 255, 0);
-  /* height: 100%; */
 }
 
 #navbar {
-  width: 98%;
+  width: 92%;
 }
 
 .logo {
@@ -68,7 +66,6 @@ header {
   justify-content: space-around;
   align-items: center;
   margin: 30px 0 30px 0;
-  /* margin-bottom: 50px; */
 }
 
 .taskBox {
@@ -82,8 +79,6 @@ header {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  /* height: 100%; */
-  /* width: auto; */
   align-content: stretch;
 }
 
@@ -117,13 +112,35 @@ header {
   background: rgb(0, 127, 212);
   border-color: rgba(0, 89, 148, 0.651);
   width: 150px;
-  /* height: 70px; */
-  /* border-radius: 10px; */
-  /* font-size: 30px; */
+}
+
+#showHotkey:hover {
+  background-color: rgb(0, 73, 122);
+}
+
+.bottom {
+  display: flex;
+  justify-content: space-evenly;
+  align-content: center;
+  color: white;
+  width: 100%;
+  margin: 0;
+}
+
+.prevNext {
+  align-self: center;
+  background: transparent;
+  border: transparent;
+  font-size: 70px;
+  color: rgb(0, 127, 212);
+}
+
+.prevNext:hover {
+  color: rgb(0, 73, 122);
 }
 
 .imgDiv {
-  margin: 0 0 50px 0;
+  margin: 0 0 15px 0;
   width: 60vw;
   padding: 0;
   border-radius: 5px;
@@ -134,10 +151,8 @@ img {
   border: 1px solid rgb(0, 61, 102);
   border-radius: 5px;
   width: 100%;
-  /* height: 100%; */
-  box-shadow: 0px 0px 25px 10px transparent;
+  /* box-shadow: 0 0 25px 10px green; */
   margin: 0;
-  /* position: absolute; */
 }
 
 .buttonDiv {
@@ -158,3 +173,11 @@ img {
   width: 120px;
 }
 
+#button:hover {
+  background-color: rgb(0, 73, 122);
+}
+
+footer {
+  width: 100%;
+  height: 30px;
+}

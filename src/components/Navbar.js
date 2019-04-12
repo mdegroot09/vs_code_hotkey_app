@@ -14,11 +14,11 @@ export default class Navbar extends Component {
           <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul className="nav navbar-nav">
               <li className='addNew active'><a href="#">Home</a></li>
-              <li className='addNew'><a href="#">Previous</a></li>
+              {/* <li className='addNew'><a href="#">Previous</a></li> */}
             </ul>
             <ul className="nav navbar-nav navbar-right">
                 <ul className="nav navbar-nav">
-                  <li className='addNew'><a href="#">Next</a></li>
+                  {/* <li className='addNew'><a href="#">Next</a></li> */}
                   <li className='addNew'><a href="#">Add New</a></li>
                 </ul>
             </ul>

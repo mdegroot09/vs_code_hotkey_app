@@ -28,7 +28,7 @@ export default class Hotkeys extends Component {
       comboCode2Pressed: true,
       comboReady: false,
       isCorrect: false,
-      edit: true
+      edit: false
     }
   }
 

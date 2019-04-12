@@ -29,12 +29,17 @@ export default class Hotkey extends Component {
             <button className='btn btn-primary btn-lg active' id='showHotkey'>Show Hotkey</button>
           </div>
         </div>
-        <div className='imgDiv' onKeyDown={(e) => this.updateKeyDown(e)} onKeyUp={(e) => this.updateKeyDown(e)}>
-          <img src={hotkeys[index].beforeImg} alt='VS Code screenshot'/>
-          <Buttons
-            isCorrect={isCorrect}
-          />
+        <div className='bottom'> 
+          <button className='prevNext'><span>&#60;</span></button>
+          <div className='imgDiv' onKeyDown={(e) => this.updateKeyDown(e)} onKeyUp={(e) => this.updateKeyDown(e)}>
+            <img src={hotkeys[index].beforeImg} alt='VS Code screenshot'/>
+            <Buttons
+              isCorrect={isCorrect}
+            />
+          </div>
+          <button className='prevNext'><span>&#62;</span></button>
         </div>
+        <footer></footer>
       </div>
     )
   }
