@@ -3,6 +3,7 @@ import React, {Component} from 'react'
 export default class Navbar extends Component {
   addNewClicked = (create) => {
     this.props.updateCreateStatus(!create)
+    this.props.updateEditStatus(false)
     if (!create) {
       let addNewButton = document.getElementsByClassName('addNewButton')[0]
       addNewButton.innerHTML = '<a href="#">Cancel New</a>'
@@ -12,8 +13,13 @@ export default class Navbar extends Component {
     }
   }
 
+  homeClicked = () => {
+    this.props.updateEditStatus(false)
+    this.props.updateCreateStatus(false)
+  }
+
   render() {
-    let {create} = this.props
+    let {create, updateEditStatus, edit} = this.props
     return(
       <div className="navbar navbar-inverse" id='navbar'>
         <div className="container-fluid">
@@ -22,7 +28,7 @@ export default class Navbar extends Component {
           </div>
           <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul className="nav navbar-nav">
-              <li className='addNew active'><a href="#">Home</a></li>
+                <li onClick={() => this.homeClicked()} className={create || edit ? 'addNew' : 'addNew active'}><a href="#">Home</a></li>
             </ul>
             <ul className="nav navbar-nav navbar-right">
                 <ul className="nav navbar-nav">

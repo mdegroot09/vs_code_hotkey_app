@@ -12,7 +12,7 @@ export default class Hotkey extends Component {
   }
 
   render(){
-    let {index, hotkeys, isCorrect, incrementIndex, decrementIndex} = this.props
+    let {index, hotkeys, isCorrect, incrementIndex, decrementIndex, deleteHotkey, updateEditStatus, edit} = this.props
     return (
       <div className="App">
         <header>
@@ -35,7 +35,9 @@ export default class Hotkey extends Component {
               isCorrect={isCorrect}
               hotkeys={hotkeys}
               index={index}
-              deleteHotkey={this.props.deleteHotkey}
+              deleteHotkey={deleteHotkey}
+              updateEditStatus={updateEditStatus}
+              edit={edit}
             />
           </div>
           <button onClick={() => incrementIndex(index)} className='prevNext'><span>&#62;</span></button>

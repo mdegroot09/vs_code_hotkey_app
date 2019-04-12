@@ -75,6 +75,10 @@ export default class Hotkeys extends Component {
     this.setState({create: createStatus})
   }
 
+  updateEditStatus = (editStatus) => {
+    this.setState({edit: editStatus})
+  }
+
   incrementIndex = (index) => {
     let {hotkeys} = this.state
     let indexUpdate = index + 1
@@ -175,6 +179,8 @@ export default class Hotkeys extends Component {
         <Navbar
           updateCreateStatus={this.updateCreateStatus}
           create={create}
+          updateEditStatus={this.updateEditStatus}
+          edit={edit}
         />
         {!create && !edit ?
           <Hotkey
@@ -186,7 +192,7 @@ export default class Hotkeys extends Component {
             index={index}
             isCorrect={isCorrect}
             deleteHotkey={this.deleteHotkey}
-            updateEdit={this.updateEdit}
+            updateEditStatus={this.updateEditStatus}
             edit={edit}
           /> :
           create ?
@@ -195,6 +201,7 @@ export default class Hotkeys extends Component {
             /> :
             <EditHotkey
               updateHotkey={this.updateHotkey}
+
             />
         }
       </div>
