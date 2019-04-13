@@ -61,7 +61,7 @@ module.exports = {
 
   update: (req, res) => {
     let updateHotkey = req.body
-    updateHotkey.id = +req.params.id
+    updateHotkey.id = Number(req.params.id)
     let index = Hotkeys.findIndex(hotkey => {
       return hotkey.id === updateHotkey.id
     })

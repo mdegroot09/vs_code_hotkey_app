@@ -47,23 +47,25 @@ export default class Hotkeys extends Component {
     axios.post('/api/hotkeys', newHotkey).then(res => {
       this.setState({create: false})
       this.setState({hotkeys: res.data})
+      window.location.reload()
     }).catch(err => console.log('err:', err))
     let addNewButton = document.getElementsByClassName('addNewButton')[0]
     addNewButton.innerHTML = '<a href="#">Add New</a>'
   }
 
   updateHotkey = (updateHotkey) => {
+    console.log('hotkey id:',updateHotkey.id)
     axios.put(`/api/hotkeys/${updateHotkey.id}`, updateHotkey).then(res => {
       this.setState({edit: false})
       this.setState({hotkeys: res.data})
+      window.location.reload()
     }).catch(err => console.log('err:', err))
   }
 
   deleteHotkey = (hotkeyToDelete) => {
     axios.delete(`/api/hotkeys/${hotkeyToDelete.id}`, hotkeyToDelete).then(res => {
       let newArray = res.data
-      console.log(newArray)
-      if (!newArray[0].afterImg){
+      if (this.state.index >= this.state.hotkeys.length){
         this.setState({index: 0})
       }
       this.setState({hotkeys: newArray})
@@ -137,7 +139,7 @@ export default class Hotkeys extends Component {
   }
 
   updateKeyDown(keycode){
-    console.log(keycode.key)
+    console.log(keycode)
     keycode = keycode.key.toLowerCase()
     let {index, hotkeys} = this.state
     let {charCode1, charCode2, charCode3, comboCode1, comboCode2} = hotkeys[index]
@@ -174,8 +176,9 @@ export default class Hotkeys extends Component {
 
   render(){
     let {hotkeys, index, isCorrect, create, edit} = this.state
+    console.log('state:', hotkeys)
     return (
-      <div className='App'> 
+      <div className='App'>
         <Navbar
           updateCreateStatus={this.updateCreateStatus}
           create={create}
@@ -201,7 +204,8 @@ export default class Hotkeys extends Component {
             /> :
             <EditHotkey
               updateHotkey={this.updateHotkey}
-
+              hotkeys={hotkeys}
+              index={index}
             />
         }
       </div>

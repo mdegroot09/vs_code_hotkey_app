@@ -33,55 +33,80 @@ export default class CreateHotkey extends Component {
   render(){
     return (
       <div className='App'>
-        <input 
-          onChange={this.handleChange}
-          name='beforeImg' 
-          type='text' 
-          placeholder="before-image url"
-        />
-        <input 
-          onChange={this.handleChange}
-          name='afterImg' 
-          type='text' 
-          placeholder="after-image url"
-        />
-        <input 
-          onChange={this.handleChange}
-          name='task' 
-          type='text' 
-          placeholder="task to perform"
-        />
-        <input 
-          onChange={this.handleChange}
-          name='charCode1' 
-          type='text' 
-          placeholder="key #1"
-        />
-        <input 
-          onChange={this.handleChange}
-          name='charCode2' 
-          type='text' 
-          placeholder="key #2"
-        />
-        <input 
-          onChange={this.handleChange}
-          name='charCode3' 
-          type='text' 
-          placeholder="key #3"
-        />
-        <input 
-          onChange={this.handleChange}
-          name='comboCode1' 
-          type='text' 
-          placeholder="combo key #1"
-        />
-        <input 
-          onChange={this.handleChange}
-          name='comboCode2' 
-          type='text' 
-          placeholder="combo key #2"
-        />
-        <button onClick={this.handleClick}>create hotkey</button>
+        <header>
+          <h1 className='title'>VS Code Hotkey App</h1>
+          <h3 className='title' id='subtext'>Where rookies become less rookie-like</h3>
+        </header> 
+        <div className='taskBox' id='createHotkeyBox'>
+          <h2 className='task'>
+            <span className='taskText'>Create a new hotkey</span>
+          </h2>
+        </div>
+        <div className='imageDiv'>
+          <div className='imageDivThird'> 
+            <p>Task to perform:</p>
+            <input 
+              onChange={this.handleChange}
+              name='task' 
+              type='text' 
+              placeholder=" e.g. 'Move active line up one'"
+              />
+            <p>Primary image URL:</p>
+            <input 
+              onChange={this.handleChange}
+              name='beforeImg' 
+              type='text' 
+              placeholder=" primary image url"
+              />
+            <p>Secondary image URL:</p>
+            <input 
+              onChange={this.handleChange}
+              name='afterImg' 
+              type='text' 
+              placeholder=" secondary image url"
+              />
+          </div>
+          <div className='imageDivThird'>
+            <p>Combo key #1 (if necessary):</p>
+            <input 
+              onChange={this.handleChange}
+              name='comboCode1' 
+              type='text' 
+              placeholder=" e.g. 'control'"
+              />
+            <p>Combo key #2 (if necessary):</p>
+            <input 
+              onChange={this.handleChange}
+              name='comboCode2' 
+              type='text' 
+              placeholder=" e.g. 'k'"
+              />
+            <button onClick={this.handleClick} className='btn btn-primary btn-lg active' id='createNew'>Create Hotkey</button>
+          </div>
+          <div className=' imageDivThird'>
+            <p>Task to perform:</p>
+            <input 
+              onChange={this.handleChange}
+              name='charCode1' 
+              type='text' 
+              placeholder=" e.g. 'alt'"
+              />
+            <p>Task to perform:</p>
+            <input 
+              onChange={this.handleChange}
+              name='charCode2' 
+              type='text' 
+              placeholder=" e.g. 'shift'"
+              />
+            <p>Task to perform:</p>
+            <input 
+              onChange={this.handleChange}
+              name='charCode3' 
+              type='text' 
+              placeholder=" e.g. 'rightarrow'"
+            />
+          </div>
+        </div>
       </div>
     )
   }

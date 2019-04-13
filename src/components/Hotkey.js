@@ -22,10 +22,13 @@ export default class Hotkey extends Component {
         <div className='sideBySide'>
           <div className='taskBox'>
             <h2 className='task'>
-              <span className='taskText'>{hotkeys[index].task}</span>
+              <span className='taskText'>{`${hotkeys[index].task}`}</span>
             </h2>
-            <button className='btn btn-primary btn-lg active' id='showHotkey'>Show Hotkey</button>
           </div>
+          <span className='btn btn-primary btn-lg active' id='baseButton'>
+            <span id='showHotkey'>Show Hotkey</span>
+            <span id='hiddenHotkey'>{`${hotkeys[index].charCode1} + ${hotkeys[index].charCode2} + ${hotkeys[index].charCode3}`}</span>
+          </span>
         </div>
         <div className='bottom'> 
           <button onClick={() => decrementIndex(index)} className='prevNext'><span>&#60;</span></button>
