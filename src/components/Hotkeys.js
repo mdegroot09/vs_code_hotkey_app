@@ -48,6 +48,7 @@ export default class Hotkeys extends Component {
       this.setState({create: false})
       this.setState({hotkeys: res.data})
       window.location.reload()
+      setTimeout(() => this.updateStateBooleans(), 200)
     }).catch(err => console.log('err:', err))
     let addNewButton = document.getElementsByClassName('addNewButton')[0]
     addNewButton.innerHTML = '<a href="#">Add New</a>'
