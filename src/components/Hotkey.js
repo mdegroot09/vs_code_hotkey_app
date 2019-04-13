@@ -16,18 +16,20 @@ export default class Hotkey extends Component {
     return (
       <div className="App">
         <header>
+          {/* <div class="alert alert-success" role="alert">Good Job</div> */}
           <h1 className='title'>VS Code Hotkey App</h1>
           <h3 className='title' id='subtext'>Where rookies become less rookie-like</h3>
         </header>
         <div className='sideBySide'>
           <div className='taskBox'>
             <h2 className='task'>
-              <span className='taskText'>{`${hotkeys[index].task}`}</span>
+              <span className='taskText'>Task: {`${hotkeys[index].task}`}</span>
             </h2>
           </div>
           <span className='btn btn-primary btn-lg active' id='baseButton'>
             <span id='showHotkey'>Show Hotkey</span>
-            <span id='hiddenHotkey'>{`${hotkeys[index].charCode1} + ${hotkeys[index].charCode2} + ${hotkeys[index].charCode3}`}</span>
+            {}
+            <span id='hiddenHotkey'>{hotkeys[index].comboCode1 ? `${hotkeys[index].comboCode1} +  ${hotkeys[index].comboCode2}, ` : ``}{`${hotkeys[index].charCode1} + ${hotkeys[index].charCode2} + ${hotkeys[index].charCode3}`}</span>
           </span>
         </div>
         <div className='bottom'> 

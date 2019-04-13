@@ -10,8 +10,8 @@ export default class Hotkeys extends Component {
   constructor() {
     super()
     this.state = {
-      hotkeys: [ 
-        {  
+      hotkeys: [
+        {
           beforeImg: '',
           afterImg: '',
           task: '',
@@ -55,7 +55,6 @@ export default class Hotkeys extends Component {
   }
 
   updateHotkey = (updateHotkey) => {
-    console.log('hotkey id:',updateHotkey.id)
     axios.put(`/api/hotkeys/${updateHotkey.id}`, updateHotkey).then(res => {
       this.setState({edit: false})
       this.setState({hotkeys: res.data})
@@ -100,7 +99,7 @@ export default class Hotkeys extends Component {
     this.setState({index: indexUpdate})
   }
 
-  updateStateBooleans(){
+  updateStateBooleans = () => {
     let {hotkeys, index} = this.state
     if(hotkeys[index].charCode1){
       this.setState({charCode1Pressed: false})
@@ -119,49 +118,96 @@ export default class Hotkeys extends Component {
     }
   }
 
-  componentDidMount(){
+  componentDidMount =() => {
     setTimeout(() => this.updateStateBooleans(), 200)
   }
 
-  checkIfCorrect(keycode){
-    let {index, hotkeys, charCode1Pressed, charCode2Pressed, charCode3Pressed, comboCode1Pressed, comboCode2Pressed, comboReady} = this.state
-    let {comboCode1, comboCode2} = hotkeys[index]
-    if (!comboCode1 || !comboCode2){
-      if (charCode1Pressed && charCode2Pressed && charCode3Pressed){
-        console.log('You did it!!!')
-        this.setState({isCorrect: true})
-      }
-    } else if (comboReady){
-      if (charCode1Pressed && charCode2Pressed && charCode3Pressed && comboCode1Pressed && comboCode2Pressed){
-        console.log('You did a combo!!!')
-        this.setState({isCorrect: true})
-      }
-    }
+  updateCorrectStatus = () => {
+    let {hotkeys, index} = this.state
+    this.setState({isCorrect: true})
+    this.setState({comboReady: false})
+    this.setState({charCode1Pressed: false})
+    this.setState({charCode2Pressed: false})
+    this.setState({charCode3Pressed: false})
+    this.setState({comboCode1Pressed: false})
+    this.setState({comboCode2Pressed: false})
+    document.getElementsByClassName('toggleCorrect')[0].innerHTML = `<img id='correctImg' src='${hotkeys[index].afterImg}' alt='VS Code screenshot'/>`
+    setTimeout(() => {
+      document.getElementsByClassName('toggleCorrect')[0].innerHTML = `<img className='' src=${hotkeys[index].beforeImg} alt='VS Code screenshot'/>`
+    }, 5000);
   }
 
-  updateKeyDown(keycode){
-    console.log(keycode)
+  updateComboStatus = () => {
+    let {comboCode1Pressed, comboCode2Pressed} = this.state
+    setTimeout(() => {
+      if(comboCode1Pressed && comboCode2Pressed){
+        this.setState({comboReady: true})
+      }
+      else {
+        this.setState({comboReady: false})
+      }
+    }, .1);
+  }
+
+  checkIfCorrect = (keycode) => {
+    let {index, hotkeys, charCode1Pressed, charCode2Pressed, charCode3Pressed, comboCode1Pressed, comboCode2Pressed, comboReady} = this.state
+    let {comboCode1, comboCode2} = hotkeys[index]
+    if (!comboCode1 && !comboCode2 && !comboReady){
+      if (charCode1Pressed && charCode2Pressed && charCode3Pressed){
+        // console.log('You did it!!!')
+        this.updateCorrectStatus()
+      }
+    } else if (comboReady){
+      if (charCode1Pressed && charCode2Pressed && charCode3Pressed){
+        // console.log('You did a combo!!!')
+        this.updateCorrectStatus()
+      } else {
+        // console.log('Incorrect combo.')
+        this.setState({isCorrect: false})
+        this.setState({comboReady: false})
+      }
+    }
+    setTimeout(() => {
+      if (this.state.comboReady) {
+        this.setState({comboReady: false})
+      }
+    }, 2000)
+  }
+
+  updateKeyDown = (keycode) => {
     keycode = keycode.key.toLowerCase()
     let {index, hotkeys} = this.state
     let {charCode1, charCode2, charCode3, comboCode1, comboCode2} = hotkeys[index]
     if(keycode === charCode1){
       this.setState({charCode1Pressed: true})
+      setTimeout(this.updateComboStatus(), .2)
     } else if (keycode === charCode2){
       this.setState({charCode2Pressed: true})
+      setTimeout(this.updateComboStatus(), .2)
     } else if (keycode === charCode3){
       this.setState({charCode3Pressed: true})
+      setTimeout(this.updateComboStatus(), .2)
     } else if (keycode === comboCode1){
       this.setState({comboCode1Pressed: true})
+      setTimeout(this.updateComboStatus(), .2)
     } else if (keycode === comboCode2){
       this.setState({comboCode2Pressed: true})
+      setTimeout(this.updateComboStatus(), .2)
+    } else {
+      this.setState({comboReady: false})
+      this.setState({charCode1Pressed: false})
+      this.setState({charCode2Pressed: false})
+      this.setState({charCode3Pressed: false})
+      this.setState({comboCode1Pressed: false})
+      this.setState({comboCode2Pressed: false})
     }
-    setTimeout(this.checkIfCorrect(keycode), .1)
   }
 
-  updateKeyUp(keycode){
+  updateKeyUp = (keycode) => {
     keycode = keycode.key.toLowerCase()
     let {index, hotkeys} = this.state
     let {charCode1, charCode2, charCode3, comboCode1, comboCode2} = hotkeys[index]
+    setTimeout(this.checkIfCorrect(keycode), .1)
     if(keycode === charCode1){
       this.setState({charCode1Pressed: false})
     } else if (keycode === charCode2){
@@ -173,11 +219,17 @@ export default class Hotkeys extends Component {
     } else if (keycode === comboCode2){
       this.setState({comboCode2Pressed: false})
     }
+    setTimeout(() => {
+      if(!this.state.comboCode1Pressed || !this.state.comboCode2Pressed){
+        this.setState({comboReady: false})
+        this.setState({comboCode1Pressed: false})
+        this.setState({comboCode2Pressed: false})
+      }
+    }, 100)
   }
 
   render(){
     let {hotkeys, index, isCorrect, create, edit} = this.state
-    console.log('state:', hotkeys)
     return (
       <div className='App'>
         <Navbar
