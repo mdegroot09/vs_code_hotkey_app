@@ -59,6 +59,7 @@ header {
   margin: 20px 20px 0 20px;
   color: rgb(58, 58, 58);
   text-shadow: 1px 1px rgb(0, 127, 212);
+  filter: drop-shadow(0 0 30px rgb(255, 255, 255))
 }
 
 .sideBySide {
@@ -115,6 +116,7 @@ header {
   background: green;
   border-color: rgb(0, 77, 0);
   height: 45px;
+  filter: drop-shadow(0 0 5px rgb(141, 141, 141))
 }
 
 #baseButtonCorrect #hiddenHotkey{
@@ -126,6 +128,7 @@ header {
   background: rgb(0, 153, 255);
   border-color: rgba(0, 89, 148, 0.651);
   height: 45px;
+  filter: drop-shadow(0 0 5px rgb(141, 141, 141))
 }
 
 #baseButton #hiddenHotkey{
@@ -134,6 +137,7 @@ header {
 
 #baseButton:hover {
   background-color: rgb(0, 73, 122);
+  filter: drop-shadow(0 0 5px rgb(141, 141, 141))
 }
 
 #baseButton:hover #hiddenHotkey{
@@ -159,6 +163,7 @@ header {
   border: transparent;
   font-size: 70px;
   color: rgb(0, 127, 212);
+  filter: drop-shadow(0 0 25px rgb(255, 255, 255))
 }
 
 .prevNext:hover {
@@ -171,10 +176,11 @@ header {
   padding: 0;
   border-radius: 5px;
   height: 400px;
+  filter: drop-shadow(0 0 10px rgb(39, 39, 39))
 }
 
 img {
-  border: 1px solid rgb(0, 61, 102);
+  border: 1px solid rgb(20, 20, 20);
   border-radius: 5px;
   max-width: 700px;
   width: 100%;
