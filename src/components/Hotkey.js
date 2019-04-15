@@ -13,6 +13,7 @@ export default class Hotkey extends Component {
 
   render(){
     let {index, hotkeys, isCorrect, incrementIndex, decrementIndex, deleteHotkey, updateEditStatus, edit} = this.props
+    let charCodes = `${hotkeys[index].charCode1} + ${hotkeys[index].charCode2} + ${hotkeys[index].charCode3}`
     return (
       <div className="App">
         <header>
@@ -27,15 +28,19 @@ export default class Hotkey extends Component {
             </h2>
           </div>
           <span className='btn btn-primary btn-lg active' id='baseButton'>
-            <span id='showHotkey'>Show Hotkey</span>
-            {}
-            <span id='hiddenHotkey'>{hotkeys[index].comboCode1 ? `${hotkeys[index].comboCode1} +  ${hotkeys[index].comboCode2}, ` : ``}{`${hotkeys[index].charCode1} + ${hotkeys[index].charCode2} + ${hotkeys[index].charCode3}`}</span>
+            <span id='showHotkey'>{isCorrect ? (hotkeys[index].comboCode1 ? `${hotkeys[index].comboCode1} +  ${hotkeys[index].comboCode2}, ${charCodes}` : `${charCodes}`) : 'Show Hotkey'}</span>
+            <span id='hiddenHotkey'>{hotkeys[index].comboCode1 ? `${hotkeys[index].comboCode1} +  ${hotkeys[index].comboCode2}, ` : ``}{`${charCodes}`}</span>
           </span>
         </div>
         <div className='bottom'> 
           <button onClick={() => decrementIndex(index)} className='prevNext'><span>&#60;</span></button>
           <div className='imgDiv' onKeyDown={(e) => this.updateKeyDown(e)} onKeyUp={(e) => this.updateKeyDown(e)}>
-            <span className='toggleCorrect'><img className='' src={hotkeys[index].beforeImg} alt='VS Code screenshot'/></span>
+            <span className=''><img className='toggleCorrect' src=
+              { isCorrect ?
+                hotkeys[index].afterImg :
+                hotkeys[index].beforeImg
+              } 
+              alt='VS Code screenshot'/></span>
             <Buttons
               isCorrect={isCorrect}
               hotkeys={hotkeys}

@@ -131,9 +131,12 @@ export default class Hotkeys extends Component {
     this.setState({charCode3Pressed: false})
     this.setState({comboCode1Pressed: false})
     this.setState({comboCode2Pressed: false})
-    document.getElementsByClassName('toggleCorrect')[0].innerHTML = `<img id='correctImg' src='${hotkeys[index].afterImg}' alt='VS Code screenshot'/>`
+    document.getElementById("baseButton").id = 'baseButtonCorrect'
+    document.getElementsByClassName('toggleCorrect')[0].id = 'correctImg'
     setTimeout(() => {
-      document.getElementsByClassName('toggleCorrect')[0].innerHTML = `<img className='' src=${hotkeys[index].beforeImg} alt='VS Code screenshot'/>`
+      this.setState({isCorrect: false})
+      document.getElementById("baseButtonCorrect").id = 'baseButton'
+      document.getElementById('correctImg').id = ''
     }, 5000);
   }
 
@@ -142,9 +145,6 @@ export default class Hotkeys extends Component {
     setTimeout(() => {
       if(comboCode1Pressed && comboCode2Pressed){
         this.setState({comboReady: true})
-      }
-      else {
-        this.setState({comboReady: false})
       }
     }, .1);
   }
@@ -221,7 +221,7 @@ export default class Hotkeys extends Component {
     }
     setTimeout(() => {
       if(!this.state.comboCode1Pressed || !this.state.comboCode2Pressed){
-        this.setState({comboReady: false})
+        // this.setState({comboReady: false})
         this.setState({comboCode1Pressed: false})
         this.setState({comboCode2Pressed: false})
       }

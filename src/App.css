@@ -109,6 +109,17 @@ header {
   justify-content: center;
 }
 
+#baseButtonCorrect {
+  margin: 20px;
+  background: green;
+  border-color: rgb(0, 77, 0);
+  height: 45px;
+}
+
+#baseButtonCorrect #hiddenHotkey{
+  display: none;
+}
+
 #baseButton {
   margin: 20px;
   background: rgb(0, 153, 255);
