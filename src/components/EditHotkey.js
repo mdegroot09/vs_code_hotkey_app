@@ -40,7 +40,7 @@ export default class EditHotkey extends Component {
         </header> 
         <div className='taskBox' id='createHotkeyBox'>
           <h2 className='task'>
-            <span className='taskText'>Edit the existing hotkey</span>
+            <span className='taskText'>Edit the existing hotkey. *Use different keys for each*</span>
           </h2>
         </div>
         <div className='imageDiv'>
@@ -90,7 +90,7 @@ export default class EditHotkey extends Component {
             <button onClick={this.handleClick} className='btn btn-primary btn-lg active' id='createNew'>Update Hotkey</button>
           </div>
           <div className=' imageDivThird'>
-            <p>Task to perform:</p>
+            <p>Character key #1:</p>
             <input 
               onChange={this.handleChange}
               name='charCode1' 
@@ -98,7 +98,7 @@ export default class EditHotkey extends Component {
               placeholder=" e.g. 'alt'"
               value={this.state.charCode1}
             />
-            <p>Task to perform:</p>
+            <p>Character key #2:</p>
             <input 
               onChange={this.handleChange}
               name='charCode2' 
@@ -106,7 +106,7 @@ export default class EditHotkey extends Component {
               placeholder=" e.g. 'shift'"
               value={this.state.charCode2}              
             />
-            <p>Task to perform:</p>
+            <p>Character key #3:</p>
             <input 
               onChange={this.handleChange}
               name='charCode3' 

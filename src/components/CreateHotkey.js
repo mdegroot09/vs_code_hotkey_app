@@ -39,7 +39,7 @@ export default class CreateHotkey extends Component {
         </header> 
         <div className='taskBox' id='createHotkeyBox'>
           <h2 className='task'>
-            <span className='taskText'>Create a new hotkey</span>
+            <span className='taskText'>Create a new hotkey. *Use different keys for each*</span>
           </h2>
         </div>
         <div className='imageDiv'>
@@ -84,21 +84,21 @@ export default class CreateHotkey extends Component {
             <button onClick={this.handleClick} className='btn btn-primary btn-lg active' id='createNew'>Create Hotkey</button>
           </div>
           <div className=' imageDivThird'>
-            <p>Task to perform:</p>
+            <p>Character key #1:</p>
             <input 
               onChange={this.handleChange}
               name='charCode1' 
               type='text' 
               placeholder=" e.g. 'alt'"
               />
-            <p>Task to perform:</p>
+            <p>Character key #2:</p>
             <input 
               onChange={this.handleChange}
               name='charCode2' 
               type='text' 
               placeholder=" e.g. 'shift'"
               />
-            <p>Task to perform:</p>
+            <p>Character key #3:</p>
             <input 
               onChange={this.handleChange}
               name='charCode3' 

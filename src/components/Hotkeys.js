@@ -53,12 +53,13 @@ export default class Hotkeys extends Component {
     let addNewButton = document.getElementsByClassName('addNewButton')[0]
     addNewButton.innerHTML = '<a href="#">Add New</a>'
   }
-
+  
   updateHotkey = (updateHotkey) => {
     axios.put(`/api/hotkeys/${updateHotkey.id}`, updateHotkey).then(res => {
       this.setState({edit: false})
       this.setState({hotkeys: res.data})
       window.location.reload()
+      setTimeout(() => this.updateStateBooleans(), 200)
     }).catch(err => console.log('err:', err))
   }
 
