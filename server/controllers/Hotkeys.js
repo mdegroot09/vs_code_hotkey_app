@@ -13,17 +13,6 @@ let Hotkeys = [
     id: id++
   },
   {
-    beforeImg: 'https://i.ibb.co/zFWsGFD/Shift-Sheet-Over-Before.png',
-    afterImg: 'https://i.ibb.co/v4MJhLL/Shift-Sheet-Over-After.png',
-    task: 'Push the selected document to the right side of the screen',
-    charCode1: 'control',
-    charCode2: 'alt',
-    charCode3: 'arrowright',
-    comboCode1: '',
-    comboCode2: '',
-    id: id++
-  },
-  {
     beforeImg: 'https://i.ibb.co/K9G7nCm/Delete-Line-Before.png',
     afterImg: 'https://i.ibb.co/Jnmzpt0/Delete-Line-After.png',
     task: 'Delete the entire line',
@@ -35,14 +24,25 @@ let Hotkeys = [
     id: id++
   },
   {
-    beforeImg: 'https://i.ibb.co/zFWsGFD/Shift-Sheet-Over-Before.png',
-    afterImg: 'https://i.ibb.co/v4MJhLL/Shift-Sheet-Over-After.png',
-    task: 'Push the selected document to the right side of the screen',
+    beforeImg: 'https://i.ibb.co/kX1KnDQ/Insert-New-Line-Before.png',
+    afterImg: 'https://i.ibb.co/D44sKPF/Insert-New-Line-After.png',
+    task: 'Insert a new blank line',
     charCode1: 'control',
-    charCode2: 'alt',
-    charCode3: 'arrowright',
+    charCode2: 'shift',
+    charCode3: 'enter',
     comboCode1: '',
     comboCode2: '',
+    id: id++
+  },
+  {
+    beforeImg: 'https://i.ibb.co/3SKS5cm/hotkeys-before.png',
+    afterImg: 'https://i.ibb.co/ypGTbcL/hotkeys-after.png',
+    task: 'View all keyboard shortcuts',
+    charCode1: 'a',
+    charCode2: 's',
+    charCode3: 'd',
+    comboCode1: 'control',
+    comboCode2: 'k',
     id: id++
   }
 ]
